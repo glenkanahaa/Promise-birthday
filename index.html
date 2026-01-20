@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Promise 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  height:100vh;
+  background:linear-gradient(180deg,#12001a,#000);
+  font-family:'Segoe UI',sans-serif;
+  overflow:hidden;
+  color:white;
+}
+
+/* floating emojis */
+.float{
+  position:absolute;
+  font-size:22px;
+  animation:rise linear infinite;
+  opacity:.7;
+}
+@keyframes rise{
+  from{transform:translateY(110vh)}
+  to{transform:translateY(-20vh)}
+}
+
+/* floating photos */
+.photo{
+  position:absolute;
+  width:160px;
+  border-radius:14px;
+  opacity:.35;
+  animation:drift 16s ease-in-out infinite alternate;
+}
+@keyframes drift{
+  from{transform:translateY(0)}
+  to{transform:translateY(-120px)}
+}
+
+/* center gift */
+.center{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+}
+.gift{
+  font-size:90px;
+  cursor:pointer;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.15)}
+}
+
+/* video overlay */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:10;
+}
+video{
+  width:90%;
+  max-width:420px;
+  border-radius:16px;
+  box-shadow:0 0 30px rgba(255,105,180,.6);
+}
+
+/* final message */
+.final{
+  display:none;
+  position:absolute;
+  inset:0;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:30px;
+}
+.final h1{font-size:28px;margin-bottom:15px}
+.final p{font-size:18px;opacity:.95}
+</style>
+</head>
+
+<body>
+
+<!-- floating emojis -->
+<script>
+const emojis = ['💖','🦋','✨','💫','💕','🌸'];
+for(let i=0;i<50;i++){
+  const e=document.createElement('div');
+  e.className='float';
+  e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+  e.style.left=Math.random()*100+'vw';
+  e.style.animationDuration=6+Math.random()*10+'s';
+  document.body.appendChild(e);
+}
+</script>
+
+<!-- floating photos -->
+<img src="photo1.jpg" class="photo" style="top:10%;left:5%">
+<img src="photo2.jpg" class="photo" style="bottom:15%;right:5%">
+
+<!-- start screen -->
+<div class="center" id="start">
+  <h1>Promise 💖</h1>
+  <p style="opacity:.8;margin:12px 0">This is just for you</p>
+  <div class="gift" onclick="openGift()">🎁</div>
+  <p>Tap to open</p>
+</div>
+
+<!-- video -->
+<div class="overlay" id="videoBox">
+  <video id="vid" src="video.mp4"></video>
+</div>
+
+<!-- final message -->
+<div class="final" id="final">
+  <div>
+    <h1>Happy Birthday, Promise 💕</h1>
+    <p>
+      You came into my life gently…<br>
+      stayed beautifully…<br><br>
+      Today I celebrate <b>you</b> —<br>
+      my best friend,<br>
+      my safe place,<br>
+      and maybe... my weekend :)<br><br>
+      — Glen
+    </p>
+  </div>
+</div>
+
+<!-- background music -->
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function openGift(){
+  // start music (browser-approved)
+  const music = document.getElementById('music');
+  music.play();
+
+  // show video
+  document.getElementById('start').style.display='none';
+  const box=document.getElementById('videoBox');
+  const vid=document.getElementById('vid');
+  box.style.display='flex';
+  vid.play();
+
+  // when video ends
+  vid.onended=()=>{
+    box.style.display='none';
+    document.getElementById('final').style.display='flex';
+  }
+}
+</script>
+
+</body>
+</html>
